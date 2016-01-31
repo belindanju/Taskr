@@ -37,6 +37,7 @@ def main():
     parser.add_argument('-s', '--song', default='Bit Rush League of Legends', help='spotify search query.')
     parser.add_argument('-k', '--keepsong', action='store_true', help='Farfignewton')
     parser.add_argument('-l', '--logpath', default=os.path.expanduser('~/Dropbox/tasks.log'))
+    parser.add_argument('-m', '--ismac', default='1')
 
     args = parser.parse_args()
 
@@ -73,7 +74,11 @@ def main():
 
     #time.sleep(seconds)
 
-    actions = [Spotify(args.song, args.keepsong), DimScreen()]
+    if args.ismac == '1':
+        actions = [Spotify(args.song, args.keepsong), DimScreen()]
+    else:  #MBP with external monitor 
+        logging.info('Set valid action to Spotify Only!')
+        actions = [Spotify(args.song, args.keepsong)]
 
     for action in actions:
         action.start()
