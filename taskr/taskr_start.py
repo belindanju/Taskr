@@ -88,8 +88,12 @@ def main():
     task["Planned End"] = str(planned_end)
 
     logging.info('Task end (planned): %s' % planned_end)
-
-    raw_input('Press enter to end...')
+    
+    try:
+      raw_input('Press enter to end...')
+    except EOFError:
+      logging.info('EOFError!')
+      pass
 
     for action in actions:
         action.end()
